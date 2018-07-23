@@ -11,6 +11,13 @@ router.get('/', (req,res) => {
         .then(polls => res.json(polls))
 });
 
+router.post('/create', (req,res) => {
+    const newPoll = new Poll({
+        name: req.body.name
+    })
+    newPoll.save().then(r => res.json(r));
+});
+
 
 
 module.exports = router;

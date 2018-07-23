@@ -1,1 +1,1 @@
-module.exports = keysURI = "mongodb://localhost:27017/Poll"
+module.exports.keysURI = "mongodb://localhost:27017/Poll"
