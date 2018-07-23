@@ -1,0 +1,6 @@
+export const CREATE_POLL = "CREATE_POLL"
+export const DELETE_POLL = "DELETE_POLL"
+export const EDIT_POLL = "EDIT_POLL"
+export const VOTE_POLL = "VOTE_POLL"
+export const CHANGE_VOTE = "CHANGE_VOTE"
+export const GET_POLL = "GET_POLL"
