@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
 
-const poll = require('./routes/api/poll');
+const apiRoute = require('./routes/api/');
 
 const app = express();
 
@@ -17,7 +17,7 @@ mongoose
 
 const port = process.env.PORT || 3000;
 
-app.use('/api/',poll);
+app.use('/api/',apiRoute);
 
 app.listen(port, () => console.log(`Run on port ${port}`))
 
