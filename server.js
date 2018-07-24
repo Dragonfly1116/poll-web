@@ -17,7 +17,7 @@ mongoose
 
 const port = process.env.PORT || 3000;
 
-app.use('/api/poll/',poll);
+app.use('/api/',poll);
 
 app.listen(port, () => console.log(`Run on port ${port}`))
 
