@@ -7,7 +7,8 @@ const UserVoting = new Schema({
             pollId: Number,
             userId: String,
             name: String,
-            count: Number
+            count: Number,
+            emoId: String
         }
     ] 
 })
