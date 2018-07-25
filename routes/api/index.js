@@ -3,7 +3,7 @@ const router = express.Router()
 
 const Polls = require('./Polls');
 const Emotions = require('./EmotionStat');
-
+const Votes = require('./Votes');
 const Comments = require('./Comments');
 
 router.route('/polls')
@@ -35,5 +35,15 @@ router.route('/comments/:userId/:pollId')
     .get(Comments.getComment)
     .put(Comments.putComment)
     .delete(Comments.removeComment)
+
+router.route('/votes')
+    .get(Votes.getVotes)
+    .post(Votes.postVotes)
+    .delete(Votes.removeVotes)
+
+router.route('/votes/:pollId/:emoType')
+    .get(Votes.getVote)
+    .put(Votes.putVote)
+    .delete(Votes.removeVote)
 
 module.exports = router

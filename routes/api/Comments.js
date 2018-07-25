@@ -8,9 +8,8 @@ module.exports.getComments = (req,res) => {
 
 module.exports.postComments = (req,res) => {
     const newComment = new Comments({
-        pollId: req.body.pollId,
-        userId: req.body.userId,
-        name: req.body.name,
+        userId: req.body.pollId,
+        voteId: req.body.voteId,
         comment: req.body.comment
     })
     newComment.save().then(comment => res.json(comment));
@@ -27,20 +26,19 @@ module.exports.removeComments = (req,res) => {
 }
 
 module.exports.getComment = (req,res) => {
-    Comments.findById({userId:req.params.userId,pollId:req.params.pollId})
+    Comments.findById({voteId:req.params.voteId})
         .then(Comment => res.json(Comment))
 }
 
 module.exports.putComment = (req,res) => {
-    Comments.findOneAndUpdate({userId:req.params.userId,pollId:req.params.pollId},req.body)
+    Comments.findOneAndUpdate({voteId:req.params.voteId},req.body)
         .then(Comment => res.json(Comment))
 }
 
 module.exports.removeComment = (req,res) => {
-    Comments.findOneAndRemove({pollId:parseInt(req.params.pollId),userId:req.params.userId}, (err,p) => {
+    Comments.findOneAndRemove({voteId:req.params.voteId}, (err,p) => {
         if (err) {
-            console.log(pollId)
-            console.log(req.params.userId)
+            console.log(log)
         } else {
             res.json(`remove success => ${p}`);
         }
