@@ -7,4 +7,4 @@ const PollSchema = new Schema({
     date: { type: Date, default: Date.now }
 })
 
-module.exports = Poll = mongoose.model('Poll', PollSchema)
+module.exports = Poll = mongoose.model('Poll', PollSchema);
