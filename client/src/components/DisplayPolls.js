@@ -7,7 +7,8 @@ import {
     CardBody,
     CardTitle,
     CardText,
-    CardSubtitle
+    CardSubtitle,
+    Button
  } from "reactstrap";
 import PropTypes from 'prop-types'
 import Vote from './Vote'
@@ -29,7 +30,16 @@ class DisplayPolls extends Component {
                                         </CardText>
                                     </CardBody>
                                     <CardBody>
-                                        <Vote name={name} />
+                                        <Container >
+                                            <Row>
+                                                <Col>
+                                                    <Vote name={name} />{' '}
+                                                </Col>
+                                                <Col>
+                                                    <Button id={_id} onClick={this.props.removePoll}>Delete</Button>
+                                                </Col>
+                                            </Row>
+                                        </Container>
                                     </CardBody>
                                 </Card>
                             </Col>
@@ -41,6 +51,7 @@ class DisplayPolls extends Component {
     }
 }
 DisplayPolls.propTypes = {
-    lists: PropTypes.array.isRequired
+    lists: PropTypes.array.isRequired,
+    removePoll: PropTypes.func.isRequired
 }
 export default DisplayPolls

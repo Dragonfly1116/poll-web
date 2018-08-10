@@ -1,6 +1,7 @@
 import {
     GET_POLLS,
-    ADD_POLL
+    ADD_POLL,
+    REMOVE_POLL
 } from '../actions/types'
 
 export const polls = (state = {
@@ -16,6 +17,11 @@ export const polls = (state = {
             return {
                 ...state,
                 lists: [action.payload,...state.lists]
+            }
+        case REMOVE_POLL:
+            return {
+                ...state,
+                lists: state.lists.filter(item => item._id !== action.id)
             }
         default:
             return state

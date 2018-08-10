@@ -2,14 +2,14 @@ import {
     GET_EMO
 } from '../actions/types'
 
-export const polls = (state = {
+export const emotions = (state = {
     lists: []
 },action) => {
     switch (action.type) {
-        case GET_POLLS:
+        case GET_EMO:
             return {
                 ...state,
-                lists: action.list
+                lists: action.payload
             }
         default:
             return state

@@ -6,6 +6,9 @@ const Emotions = require('./EmotionStat');
 const Votes = require('./Votes');
 const Comments = require('./Comments');
 
+
+const app = express();
+
 router.route('/polls')
     .get(Polls.getPolls)
     .post(Polls.postPolls)

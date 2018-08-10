@@ -9,7 +9,6 @@ module.exports.getVotes = (req,res) => {
 module.exports.postVotes = (req,res) => {
     const newVote = new Votes({
         pollId: req.body.pollId,
-        name: req.body.name,
         count: req.body.count,
         emoType: req.body.emoType 
     })
@@ -27,17 +26,17 @@ module.exports.removeVotes = (req,res) => {
 }
 
 module.exports.getVote = (req,res) => {
-    Votes.findById({pollId:req.body.pollId,emoType:req.body.emoType})
+    Votes.findById({pollId:req.params.pollId,emoType:req.params.emoType})
         .then(vote => res.json(vote))
 }
 
 module.exports.putVote = (req,res) => {
-    Votes.findOneAndUpdate({pollId:req.body.pollId,emoType:req.body.emoType},req.body)
+    Votes.findOneAndUpdate({pollId:req.params.pollId,emoType:req.params.emoType},req.body)
         .then(vote => res.json(vote))
 }
 
 module.exports.removeVote = (req,res) => {
-    Votes.findOneAndRemove({pollId:req.body.pollId,emoType:req.body.emoType}, (err,p) => {
+    Votes.findOneAndRemove({pollId:req.params.pollId,emoType:req.params.emoType}, (err,p) => {
         if (err) {
             console.log(pollId)
             console.log(req.params.userId)

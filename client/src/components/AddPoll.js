@@ -10,6 +10,7 @@ import {
         ModalFooter } from 'reactstrap';
 import { newPoll } from '../actions/pollAction'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 class AddPoll extends React.Component {
   constructor(props) {
@@ -40,9 +41,10 @@ class AddPoll extends React.Component {
     e.preventDefault();
     const poll = {
         name: this.state.name,
-        content: this.state.content
+        content: this.state.content,
+        emotions: this.props.emotions
     }
-    this.props.newPoll(poll)
+    this.props.newPoll(poll);
     this.toggle()    
   } 
 
@@ -67,6 +69,9 @@ class AddPoll extends React.Component {
       </div>
     );
   }
+}
+AddPoll.propTypes = {
+  emotions: PropTypes.array.isRequired
 }
 
 export default connect(null,{ newPoll })(AddPoll);
