@@ -17,7 +17,7 @@ export const removePoll = poll => dispatch => {
         })
 }
 
-export const newPoll = poll => dispatch => {
+export const createPoll = poll => dispatch => {
     axios.post('/api/polls/', {
         name: poll.name,
         content: poll.content
