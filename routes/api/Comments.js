@@ -6,7 +6,7 @@ module.exports.getComments = (req,res) => {
         .then(comment => res.json(comment))
 }
 
-module.exports.postComments = (req,res) => {
+module.exports.postComment = (req,res) => {
     const newComment = new Comments({
         userId: req.body.pollId,
         voteId: req.body.voteId,
@@ -26,7 +26,7 @@ module.exports.removeComments = (req,res) => {
 }
 
 module.exports.getComment = (req,res) => {
-    Comments.findById({voteId:req.params.voteId})
+    Comments.find({voteId:req.params.voteId})
         .then(Comment => res.json(Comment))
 }
 

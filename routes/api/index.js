@@ -31,10 +31,10 @@ router.route('/emotions/:id')
 
 router.route('/comments')
     .get(Comments.getComments)
-    .post(Comments.postComments)
+    .post(Comments.postComment)
     .delete(Comments.removeComments)
 
-router.route('/comments/:userId/:pollId')
+router.route('/comments/:voteId')
     .get(Comments.getComment)
     .put(Comments.putComment)
     .delete(Comments.removeComment)

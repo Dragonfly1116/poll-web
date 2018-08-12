@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import NavigatorBar from './NavigatorBar' 
-import Polls from './Polls' 
+import Polls from './Polls/Polls' 
 const Root = ({store}) => (
     <Provider store={store}>
         <Router>
