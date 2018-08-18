@@ -5,6 +5,7 @@ const Polls = require('./Polls');
 const Emotions = require('./EmotionStat');
 const Votes = require('./Votes');
 const Comments = require('./Comments');
+const Users = require('./Users');
 
 
 const app = express();
@@ -48,5 +49,16 @@ router.route('/votes/:pollId/:emoType')
     .get(Votes.getVote)
     .put(Votes.putVote)
     .delete(Votes.removeVote)
+
+router.route('/users')
+    .delete(Users.deleteAllUser)
+    .get(Users.getUsers)
+    .post(Users.signupUser)
+
+router.route('/users/:userId')
+    .delete(Users.deleteUser)
+    
+router.route('/login')
+    .post(Users.loginUser)
 
 module.exports = router
