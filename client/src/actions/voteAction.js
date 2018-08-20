@@ -5,6 +5,7 @@ import {
     UPDATE_VOTE,
     REMOVE_VOTE,
 } from './types'
+import {deleteCommentByVote, deleteCommentsByVoteId} from './commentAction'
 
 export const getVotes = () => dispatch => {
     axios.get('/api/votes/')
@@ -15,16 +16,18 @@ export const getVotes = () => dispatch => {
         .catch( err => console.log(err))
 }
 
-export const removeVote = poll => dispatch => {
-            poll.emotions.map(emotion_name => {
-                axios.delete(`/api/votes/${poll.id}/${emotion_name.type}`)
-                    .then( res => dispatch({
-                        type: REMOVE_VOTE,
-                        id: poll.id,
-                        type: emotion_name.type
-                    }))
-                    .catch(err=> console.log(err))
+export const removeVote = (_id,type) => dispatch => {
+    axios.delete(`/api/votes/${_id}/${type}`,
+        {headers: {'Authorization' : 'Bearer ' + localStorage.getItem('token')}})
+        .then( res => {
+            dispatch({
+                type: REMOVE_VOTE,
+                id: _id,
+                type: type
             })
+            dispatch(deleteCommentsByVoteId(res.data._id))
+        })
+        .catch(err=> console.log(err))
 }
 
 export const createVote = (_id,type) => dispatch => {
@@ -32,7 +35,7 @@ export const createVote = (_id,type) => dispatch => {
         pollId: _id,
         count: 0,
         emoType: type
-    })
+    }, {headers: {'Authorization' : 'Bearer ' + localStorage.getItem('token')}})
         .then(res => dispatch({
             type: CREATE_VOTE,
             vote: res.data

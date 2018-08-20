@@ -20,17 +20,20 @@ module.exports.loginUser = async (req,res,next) => {
                 res.status(401).json({
                     message: "Auth failed"
                 })
-            }
+            } 
             if(result) {
                 const token = jwt.sign({
-                    email: req.params.email
+                    email: req.body.email
                     },
                     "secret_key",
                     { expiresIn: "1h" }
                 )
                 res.status(200).json({
                     message: "Auth Successful",
-                    token: token
+                    token: token,
+                    user: {
+                        email: req.body.email
+                    }
                     })
             } else {
                 res.status(401).json({

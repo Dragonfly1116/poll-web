@@ -9,7 +9,7 @@ export const DisplayPoll = (props) => (
           <CardTitle>{props.name}</CardTitle>
           <CardText>{props.content}</CardText>
           <CardText>
-            <small className="text-muted">{props.date}</small>
+            <small className="text-muted">create by {props.user} at {props.date} </small>
           </CardText>
     </CardBody>
 )

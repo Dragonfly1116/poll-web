@@ -28,6 +28,7 @@ module.exports.removeComments = (req,res) => {
 module.exports.getComment = (req,res) => {
     Comments.find({voteId:req.params.voteId})
         .then(Comment => res.json(Comment))
+        .catch( err => res.json({message: "empty"}))
 }
 
 module.exports.putComment = (req,res) => {
@@ -35,12 +36,21 @@ module.exports.putComment = (req,res) => {
         .then(Comment => res.json(Comment))
 }
 
-module.exports.removeComment = (req,res) => {
-    Comments.findOneAndRemove({voteId:req.params.voteId}, (err,p) => {
+module.exports.removeCommentByVoteId = (req,res) => {
+    Comments.deleteMany({voteId:req.params.voteId}, (err,p) => {
         if (err) {
-            console.log(log)
+            console.log(err)
         } else {
             res.json(`remove success => ${p}`);
+        }
+    })
+}
+module.exports.removeCommentByuserId = (req,res) => {
+    Comments.deleteMany({userId:req.params.userId}, (err,p) => {
+        if(err) {
+            console.log(err)
+        } else {
+            res.json(`remove success => ${p}`)
         }
     })
 }

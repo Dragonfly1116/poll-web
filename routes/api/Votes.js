@@ -38,10 +38,9 @@ module.exports.putVote = (req,res) => {
 module.exports.removeVote = (req,res) => {
     Votes.findOneAndRemove({pollId:req.params.pollId,emoType:req.params.emoType}, (err,p) => {
         if (err) {
-            console.log(pollId)
-            console.log(req.params.userId)
+            console.log(err)
         } else {
-            res.json(`remove success => ${p}`);
+            res.json(p);
         }
     })
 }

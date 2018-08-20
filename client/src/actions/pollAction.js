@@ -7,21 +7,23 @@ import {
 import { createVote, removeVote } from './voteAction'
 
 export const removePoll = poll => dispatch => {
-    axios.delete(`/api/polls/${poll.id}`)
+    axios.delete(`/api/polls/${poll.id}`, {headers: {'Authorization' : 'Bearer '+ localStorage.getItem('token')}})
         .then(res => {
             dispatch({
                 type: REMOVE_POLL,
                 id: poll.id
             })
-            dispatch(removeVote(poll))
+            poll.emotions.map( item =>
+                dispatch(removeVote(poll.id,item.type))
+            )
         })
 }
 
 export const createPoll = poll => dispatch => {
     axios.post('/api/polls/', {
         name: poll.name,
-        content: poll.content
-    })
+        content: poll.content,
+    }, {headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}})
         .then( res => 
             {
                 dispatch({

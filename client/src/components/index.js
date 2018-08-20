@@ -16,6 +16,7 @@ class Root extends React.Component {
 
     handleLogout = () => {
         localStorage.removeItem('token')
+        localStorage.removeItem('user')
         this.setState({
             isLoggedIn: false
         })
@@ -39,7 +40,7 @@ class Root extends React.Component {
                 <Router>
                     <div>
                         <NavigatorBar isLoggedIn={this.state.isLoggedIn} logout={this.handleLogout} />
-                        <Route exact path="/" component={Polls} />
+                        <Route exact path="/" render={ ()=> <Polls isLoggedIn={this.state.isLoggedIn} /> } />
                         <Route exact path="/signup" component={SignUp} />
                         <Route exact path="/signin" render={ () => <SignIn login={this.handleLogin}/> } />
                     </div>

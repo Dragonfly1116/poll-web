@@ -7,8 +7,12 @@ const Votes = require('./Votes');
 const Comments = require('./Comments');
 const Users = require('./Users');
 
+const VerifyToken = require('./JsonWebToken')
 
-const app = express();
+router.post('/polls', VerifyToken)
+router.post('/votes', VerifyToken)
+router.delete('/polls/:id', VerifyToken)
+router.delete('/votes/:pollId/:emoType', VerifyToken)
 
 router.route('/polls')
     .get(Polls.getPolls)
@@ -34,11 +38,21 @@ router.route('/comments')
     .get(Comments.getComments)
     .post(Comments.postComment)
     .delete(Comments.removeComments)
+router.post('/comments', VerifyToken)
+router.delete('/comments', VerifyToken)
 
-router.route('/comments/:voteId')
+router.route('/comments/vote/:voteId')
+    .delete(Comments.removeCommentByVoteId)
+
+router.delete('/comments/vote/:voteId', VerifyToken)
+
+router.route('comments/:voteId')
     .get(Comments.getComment)
     .put(Comments.putComment)
-    .delete(Comments.removeComment)
+router.route('/comments/user/:userId')
+    .delete(Comments.removeCommentByuserId)
+
+router.delete('/comments/user/:userId', VerifyToken)
 
 router.route('/votes')
     .get(Votes.getVotes)

@@ -1,5 +1,7 @@
 const Poll = require('../../models/Poll')
 
+const jwt = require('jsonwebtoken')
+
 module.exports.getPolls = (req,res) => {
     Poll.find()
         .sort({date: -1 })
@@ -9,7 +11,8 @@ module.exports.getPolls = (req,res) => {
 module.exports.postPolls = (req,res) => {
     const newPoll = new Poll({
         name: req.body.name,
-        content: req.body.content
+        content: req.body.content,
+        user: req.decoded.email
     })
     newPoll.save().then(r => res.json(r));
 }

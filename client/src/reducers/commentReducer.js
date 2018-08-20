@@ -1,6 +1,7 @@
 import {
     GET_COMMENT,
-    DELETE_COMMENT,
+    DELETE_COMMENTS_BYUSER,
+    DELETE_COMMENTS_BYVOTE,
     CREATE_COMMENT,
     UPDAET_COMMENT
 } from '../actions/types'
@@ -19,10 +20,15 @@ export const comment = (state = {
                 ...state,
                 lists: [...state.lists,action.payload]
             }
-        case DELETE_COMMENT:
+        case DELETE_COMMENTS_BYVOTE:
             return {
                 ...state,
                 lists: state.lists.filter(item => item.voteId !== action.id)
+            }
+        case DELETE_COMMENTS_BYUSER:
+            return {
+                ...state,
+                lists: state.lists.filter(item => item.userId !== action.id)
             }
         default:
             return state;

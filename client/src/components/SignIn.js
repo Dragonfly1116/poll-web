@@ -47,6 +47,7 @@ export default class SignIn extends React.Component {
             if(res.status === 200) {
                 alert(res.data.message)
                 localStorage.setItem('token', res.data.token)
+                localStorage.setItem('user', res.data.user.email)
                 this.props.login()
                 this.setState({
                     redirectToReferrer: true

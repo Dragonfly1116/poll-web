@@ -24,7 +24,7 @@ class EmotionVote extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getComment(this.props.voteId)
+        this.props.getComment()
     }
 
     toggle = e => {
