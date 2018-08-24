@@ -1,7 +1,9 @@
 import {
     GET_POLLS,
     ADD_POLL,
-    REMOVE_POLL
+    REMOVE_POLL,
+    EDIT_POLL,
+    GET_POLL
 } from '../actions/types'
 
 export const polls = (state = {
@@ -22,6 +24,18 @@ export const polls = (state = {
             return {
                 ...state,
                 lists: state.lists.filter(item => item._id !== action.id)
+            }
+        case EDIT_POLL:
+            return {
+                ...state,
+                lists: state.lists.map(item => (item._id === action.id) ? 
+                    {...item, name: action.payload.name , content: action.payload.content } :
+                    item )
+            }
+        case GET_POLL:
+            return {
+                ...state,
+                lists: [action.payload]
             }
         default:
             return state

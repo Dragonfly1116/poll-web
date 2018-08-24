@@ -4,12 +4,13 @@ import {
     Button
 } from 'reactstrap'
 import PropTypes from 'prop-types'
+import EditPoll from './EditPoll'
 class DeleteAndEditPoll extends React.Component {
     
     render() {
         return (
             <CardBody>
-                <Button onClick={this.props.edit} id={this.props.id}>Edit</Button>{' '}
+                <EditPoll name={this.props.name} content={this.props.content} id={this.props.id} /><br />
                 <Button onClick={this.props.delete} id={this.props.id}>Delete</Button>
             </CardBody>
         )
@@ -18,7 +19,8 @@ class DeleteAndEditPoll extends React.Component {
 }
 
 DeleteAndEditPoll.propTypes = {
-    edit: PropTypes.func.isRequired,
+    name: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
     delete: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired
 }

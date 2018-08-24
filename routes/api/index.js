@@ -7,9 +7,11 @@ const Votes = require('./Votes');
 const Comments = require('./Comments');
 const Users = require('./Users');
 
-const VerifyToken = require('./JsonWebToken')
+const VerifyToken = require('./JsonWebToken') 
 
 router.post('/polls', VerifyToken)
+router.get('/polls/:id', VerifyToken)
+router.put('/polls/:id', VerifyToken)
 router.post('/votes', VerifyToken)
 router.delete('/polls/:id', VerifyToken)
 router.delete('/votes/:pollId/:emoType', VerifyToken)

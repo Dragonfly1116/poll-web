@@ -63,7 +63,11 @@ class Polls extends Component {
                                     />
                                 { (user === localStorage.getItem('user'))
                                 ? 
-                                    <DeleteAndEditPoll delete={this.removePoll} edit={this.editPoll} id={_id} />
+                                    <DeleteAndEditPoll 
+                                        delete={this.removePoll} 
+                                        id={_id}
+                                        name={name}
+                                        content={content} />
                                 : "" }
                             </Card> 
                         </Col>

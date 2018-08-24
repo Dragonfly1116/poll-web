@@ -1,7 +1,8 @@
 export const GET_POLLS = 'GET_POLLS'
+export const GET_POLL = 'GET_POLL'
 export const ADD_POLL = 'ADD_POLL'
 export const REMOVE_POLL = 'REMOVE_POLL'
-
+export const EDIT_POLL = 'EDIT_POLL'
 export const GET_EMO = 'GET_EMO'
 
 export const CREATE_VOTE = 'CREATE_VOTE'

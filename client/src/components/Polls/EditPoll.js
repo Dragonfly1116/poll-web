@@ -11,7 +11,9 @@ import {
     Form
 } from 'reactstrap'
 import PropTypes from 'prop-types'
-class CreatePoll extends React.Component {
+import {connect} from 'react-redux'
+import {editPoll} from '../../actions/pollAction'
+class EditPoll extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -19,18 +21,15 @@ class CreatePoll extends React.Component {
             content: ''
         }
     }
-
+    componentDidMount() {
+        this.setState({
+            name: this.props.name,
+            content: this.props.content
+        })
+    }
     onChange = (e) => {
         this.setState({
             [e.target.id]: e.target.value
-        })
-    }
-
-    toggleAndCreate = () => {
-        this.toggle();
-        this.props.createPoll({
-            name: this.state.name,
-            content: this.state.content
         })
     }
     toggle = () => {
@@ -38,27 +37,36 @@ class CreatePoll extends React.Component {
           modal: !this.state.modal
         });
     }
+    toggleAndEdit = () => {
+        const POLL = {
+            id: this.props.id,
+            name: this.state.name,
+            content: this.state.content
+        }
+        this.props.editPoll(POLL)
+        this.toggle();
+    }
 
     render() {
         return (
             <div>
-                <Button color="info" onClick={this.toggle}>Create Poll</Button>
+                <Button color="info" onClick={this.toggle}>Edit Poll</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                <ModalHeader toggle={this.toggle}>New poll</ModalHeader>
+                <ModalHeader toggle={this.toggle}>Edit</ModalHeader>
                 <ModalBody>
                     <Form>
                         <FormGroup>
                             <Label >Name</Label>
-                            <Input onChange={this.onChange} type="text" id="name" placeholder="Name of Poll" />
+                            <Input onChange={this.onChange} type="text" id="name" placeholder={this.state.name} />
                         </FormGroup>
                         <FormGroup>
                             <Label>Content</Label>
-                            <Input onChange={this.onChange} type="textarea" id="content" />
+                            <Input onChange={this.onChange} type="textarea" id="content" placeholder={this.state.content} />
                         </FormGroup>
                     </Form>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={this.toggleAndCreate}>Create</Button>{' '}
+                    <Button color="primary" onClick={this.toggleAndEdit}>Edit</Button>{' '}
                     <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                 </ModalFooter>
                 </Modal>
@@ -66,7 +74,9 @@ class CreatePoll extends React.Component {
         )
     }
 }
-CreatePoll.proptypes = {
-    createPoll: PropTypes.func.isRequired
+EditPoll.propTypes = {
+    name: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired
 }
-export default CreatePoll
+export default connect(null,{editPoll})(EditPoll)
