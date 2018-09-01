@@ -12,6 +12,7 @@ import {DisplayPoll} from './DisplayPoll'
 import CreatePoll from './CreatePoll'
 import PropTypes from 'prop-types'
 import PollVote from './PollVote/PollVote'
+import VotePoll from './VotePoll'
 import DeleteAndEditPoll from './DeleteAndEditPoll';
 class Polls extends Component {
     componentDidMount() {
@@ -60,7 +61,10 @@ class Polls extends Component {
                                     />
                                 <PollVote
                                     pollId={_id}
+                                    emotions={this.props.emotions.lists}
                                     />
+                                {/* <VotePoll 
+                                    votes={vote}/> */}
                                 { (user === localStorage.getItem('user'))
                                 ? 
                                     <DeleteAndEditPoll 

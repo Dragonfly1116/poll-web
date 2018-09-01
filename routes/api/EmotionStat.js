@@ -9,6 +9,7 @@ module.exports. getEmotions = (req,res) => {
 module.exports.postEmotions = (req,res) => {
     const newEmotion = new Emotion({
         type: req.body.type,
+        url: req.body.url
     })
     newEmotion.save().then(emotion => res.json(emotion));
 }

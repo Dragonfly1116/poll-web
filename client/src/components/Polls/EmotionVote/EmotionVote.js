@@ -36,7 +36,7 @@ class EmotionVote extends React.Component {
     render() {
         return (
                 <Row style={rowStyle}>
-                    <Col  sm="2">{this.props.emoType}</Col>
+                    <Col  sm="2"><img src="https://emojipedia-us.s3.amazonaws.com/thumbs/120/apple/129/smiling-face-with-open-mouth_1f603.png" /></Col>
                     <Col  sm="8">
                         <Progress value={this.props.count} max={this.props.allCount} />
                     </Col>

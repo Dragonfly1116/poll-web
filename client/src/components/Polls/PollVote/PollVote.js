@@ -41,6 +41,7 @@ class PollVote extends React.Component {
                                 key={_id}
                                 voteId={_id}
                                 emoType={emoType}
+                                emotions={this.props.emotions}
                                 count={count}
                                 pollId={pollId}
                                 allCount={this.state.NumberOfVote}
