@@ -1,51 +1,58 @@
-const Poll = require('../../models/Poll')
+const express = require('express')
+const router = express.Router()
 
-const jwt = require('jsonwebtoken')
+const Poll = require('../../models/Polls')
+const verifyToken = require('./verifyToken')
+const loadUser = require('./loadUser')
 
-module.exports.getPolls = (req,res) => {
+
+router.get('/polls/', (req,res) => {
     Poll.find()
-        .sort({date: -1 })
-        .then(polls => res.json(polls))
-}
+        .sort({date: -1})
+        .then( polls => res.json(polls))
+})
 
-module.exports.postPolls = (req,res) => {
+router.delete('/polls/', (req,res) => {
+    Poll.remove({}, err => {
+        if(err) {
+            return res.status(500).json(err)
+        } else {
+            return res.status(200).json({message: 'delete all polls'})
+        }
+    })
+})
+
+router.use('/polls/',verifyToken)
+router.post('/polls/', (req,res) => {
     const newPoll = new Poll({
         name: req.body.name,
         content: req.body.content,
-        user: req.decoded.email
+        author: req.body.user
     })
-    newPoll.save().then(r => res.json(r));
-}
+    newPoll.save()
+        .then(result => res.status(200).json(result))
+        .catch(err => res.status(500).json(err))
+})
 
-module.exports.removePolls = (req,res) => {
-    Poll.remove({}, err => {
-        if (err) {
-            console.log(err)
-        } else {
-            res.json('success');
-        }
+router.route('/poll/:id')
+    .all(verifyToken,loadUser)
+    .get((req,res) => {
+        Poll.findById({_id:req.params.id})
+            .then( poll => res.status(200).json(poll))
+            .catch( err => res.status(403).json(err))
     })
-}
-
-module.exports.getPoll = (req,res) => {
-    Poll.findById({_id:req.params.id})
-        .then(poll => res.json(poll))
-}
-
-module.exports.putPoll = (req,res) => {
-    Poll.findOneAndUpdate({_id:req.params.id},req.body)
-        .then(poll => res.json(poll))
-}
-
-module.exports.removePoll = (req,res) => {
-    Poll.findByIdAndRemove({_id:req.params.id}, (err,p) => {
-        if (err) {
-            console.log(err)
-        } else {
-            res.json(`remove success => ${p}`);
-        }
+    .delete((req,res) => {
+        Poll.findOneAndRemove({_id: req.params.id,author: req.user}, (err,result) => {
+            if(err) {
+                res.status(403).json(err)
+            } else 
+                res.status(200).json(result)
+        })
     })
-}
+    .put((req,res) => {
+        Poll.findOneAndUpdate({_id:req.params.id, author:req.user}, req.body)
+            .then(result => res.status(200).json(result))
+            .catch(err => res.status(500).json(err))
+    })
 
-
-
+module.exports = router

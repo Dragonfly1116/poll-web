@@ -3,14 +3,14 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
 
-const apiRoute = require('./routes/api/');
+const pollApi = require('./routes/api/Polls');
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
 const db = require('./config/keys').keysURI;
-app.use('/api/',apiRoute);
+app.use('/api/',pollApi);
 
 mongoose
     .connect(db)
