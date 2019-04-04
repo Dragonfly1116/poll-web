@@ -29,7 +29,7 @@ export const polls = (state = {
             return {
                 ...state,
                 lists: state.lists.map(item => (item._id === action.id) ? 
-                    {...item, name: action.payload.name , content: action.payload.content } :
+                    {...item, ...action.payload } :
                     item )
             }
         case GET_POLL:

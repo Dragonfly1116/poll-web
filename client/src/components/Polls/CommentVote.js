@@ -9,24 +9,25 @@ import {
     ModalFooter,
     Button
 } from 'reactstrap'
-const CommentVote = (props) => (
+const CommentVote = ({comments, closeModal}) => (
     <div>
           <ModalBody>
             {
-                props.comments.map( ({_id,userId,voteId,comment}) => (
+                comments.map( ({_id,voter,comment}) => (
                     <div key={_id}>
-                        <Card>
+                        {/* <Card>
                             <CardBody>
-                            <CardTitle>{userId}</CardTitle>
+                            <CardTitle>{voter}</CardTitle>
                             <CardText>{comment}</CardText>
                             </CardBody>
-                        </Card>
+                        </Card> */}
+                        SOMEEEEE
                     </div>
                 ))
             }  
           </ModalBody>
           <ModalFooter>
-            <Button color="danger" onClick={props.closeModal}>Close</Button>
+            <Button color="danger" onClick={closeModal}>Close</Button>
           </ModalFooter>
     </div>
 )
